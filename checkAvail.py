@@ -1,3 +1,7 @@
+# Created: 12/21/2020
+# Author: Jake Johnson
+# usage: py checkAvail [password] [month] [day] [year]
+
 import sys
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -5,12 +9,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+# class name if the day is available
+AVAILABLE = 'DayPicker-Day'
+
+# get user input for date
 monthInput = sys.argv[2]
 dayInput = sys.argv[3]
 yearInput = sys.argv[4]
-
-# class name if the day is available
-AVAILABLE = 'DayPicker-Day'
 
 # open login page
 url = "https://account.ikonpass.com/en/login"
@@ -31,6 +36,7 @@ try:
 	EC.presence_of_element_located((By.XPATH, '//span[text()="Make a Reservation"]')))
 except:
 	print("Error: Timed out")
+	sys.exit()
 # use a javascript click, the selenium click not working
 driver.execute_script("arguments[0].click();", resButton) 
 
@@ -41,6 +47,7 @@ try:
 	EC.presence_of_element_located((By.XPATH, '//span[text()="Arapahoe Basin"]')))
 except:
 	print("Error: Timed out")
+	sys.exit()
 mountain.click();
 
 # click 'Continue' button
@@ -50,6 +57,7 @@ try:
 	EC.presence_of_element_located((By.XPATH, '//span[text()="Continue"]')))
 except:
 	print("Error: Timed out")
+	sys.exit()
 contButton.click()
 
 # check if correct month is being checked
@@ -59,6 +67,7 @@ try:
 	EC.presence_of_element_located((By.XPATH, '//span[@class="sc-pckkE goPjwB"]')))
 except:
 	print("Error: Timed out")
+	sys.exit()
 
 # loop through months until correct month is being checked
 while (monthBeingChecked.get_attribute('innerHTML') != (monthInput + ' ' + yearInput)):
@@ -70,6 +79,7 @@ while (monthBeingChecked.get_attribute('innerHTML') != (monthInput + ' ' + yearI
 		EC.presence_of_element_located((By.XPATH, '//span[@class="sc-pckkE goPjwB"]')))
 	except:
 		print("Error: Timed out")
+		sys.exit()
 
 # parse monthInput since that is how it is labeled in the Ikon page HTML
 monthInput = monthInput[0:3]
@@ -82,6 +92,7 @@ try:
     EC.presence_of_element_located((By.XPATH, '//div[contains(@aria-label,"' + monthInput + ' ' + dayInput + '")]')))
 except:
 	print("Error: Timed out")
+	sys.exit()
 
 # print if day is available or not
 if (day.get_attribute('class') == AVAILABLE):
