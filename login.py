@@ -1,15 +1,13 @@
 import sys
-import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import bs4
-from bs4 import BeautifulSoup
 
-monthInput = 'March'
-yearInput = '2021'
+monthInput = sys.argv[2]
+dayInput = sys.argv[3]
+yearInput = sys.argv[4]
 
 # class name if the day is available
 AVAILABLE = 'DayPicker-Day'
@@ -26,7 +24,7 @@ password = driver.find_element_by_name('password')
 password.send_keys(sys.argv[1])
 password.send_keys(Keys.RETURN)
 
-# Click 'Make a Reservation' button
+# click 'Make a Reservation' button
 try:
 	# wait for page to load
 	resButton = WebDriverWait(driver, 20).until(
@@ -36,7 +34,7 @@ except:
 # use a javascript click, the selenium click not working
 driver.execute_script("arguments[0].click();", resButton) 
 
-# Select mountain
+# select mountain
 try:
 	# wait for page to load
 	mountain = WebDriverWait(driver, 20).until(
@@ -45,7 +43,7 @@ except:
 	print("Error: Timed out")
 mountain.click();
 
-# Click 'Continue' button
+# click 'Continue' button
 try:
 	# wait for page to load
 	contButton = WebDriverWait(driver, 20).until(
@@ -61,11 +59,8 @@ try:
 	EC.presence_of_element_located((By.XPATH, '//span[@class="sc-pckkE goPjwB"]')))
 except:
 	print("Error: Timed out")
-if (monthBeingChecked.get_attribute('innerHTML') != (monthInput + ' ' + yearInput)):
-	print('WRONG MONTH')
 
 # loop through months until correct month is being checked
-
 while (monthBeingChecked.get_attribute('innerHTML') != (monthInput + ' ' + yearInput)):
 	# go to next month
 	nextMonthButton = driver.find_element(By.XPATH, '//i[@class="amp-icon icon-chevron-right"]')
@@ -75,21 +70,27 @@ while (monthBeingChecked.get_attribute('innerHTML') != (monthInput + ' ' + yearI
 		EC.presence_of_element_located((By.XPATH, '//span[@class="sc-pckkE goPjwB"]')))
 	except:
 		print("Error: Timed out")
-	time.sleep(1)
-	print(monthBeingChecked.get_attribute('innerHTML'))
 
+# parse monthInput since that is how it is labeled in the Ikon page HTML
+monthInput = monthInput[0:3]
 
-
-# Check if day is available by reading class
+# check if day is available by reading element class. Class will be 'DayPicker-Day'
+# if available
 try:
 	# wait for page to load
 	day = WebDriverWait(driver, 20).until(
-	EC.presence_of_element_located((By.XPATH, '//div[contains(@aria-label,"Mar 23")]')))
+    EC.presence_of_element_located((By.XPATH, '//div[contains(@aria-label,"' + monthInput + ' ' + dayInput + '")]')))
 except:
 	print("Error: Timed out")
 
+# print if day is available or not
 if (day.get_attribute('class') == AVAILABLE):
 	print("This day is available")
+else:
+	print("This day is not available")
+
+# close browser
+driver.close()
 
 
 
