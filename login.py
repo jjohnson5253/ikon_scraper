@@ -3,42 +3,93 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import bs4
 from bs4 import BeautifulSoup
 
+monthInput = 'March'
+yearInput = '2021'
+
+# class name if the day is available
+AVAILABLE = 'DayPicker-Day'
+
+# open login page
 url = "https://account.ikonpass.com/en/login"
 driver = webdriver.Chrome()
 driver.get(url)
 
-u = driver.find_element_by_name('email')
-u.send_keys('jjohnson11096@gmail.com')
-p = driver.find_element_by_name('password')
-p.send_keys(sys.argv[1])
-p.send_keys(Keys.RETURN)
+# send login parameters
+username = driver.find_element_by_name('email')
+username.send_keys('jjohnson11096@gmail.com')
+password = driver.find_element_by_name('password')
+password.send_keys(sys.argv[1])
+password.send_keys(Keys.RETURN)
 
-# wait for login to load (in seconds)
-# TODO: see if there is a better way to wait for this. Like wait for a redirect?
-# or see the minimum time needed (could be different for different people's computers)
-time.sleep(3)
+# Click 'Make a Reservation' button
+try:
+	# wait for page to load
+	resButton = WebDriverWait(driver, 20).until(
+	EC.presence_of_element_located((By.XPATH, '//span[text()="Make a Reservation"]')))
+except:
+	print("Error: Timed out")
+# use a javascript click, the selenium click not working
+driver.execute_script("arguments[0].click();", resButton) 
 
-url = "https://account.ikonpass.com/en/myaccount/add-reservations/"
-driver.get(url)
-
-time.sleep(2)
-
-#mountains = driver.find_element_by_class_name('sc-qQwsb kORfUh').get_attribute("innerHTML")
-#mountain = driver.find_element_by_link_text('Arapahoe Basin')
-#mountain = driver.find_element_by_id('react-autowhatever-resort-picker-section-0-item-1')
-mountain = driver.find_element(By.XPATH, '//span[text()="Arapahoe Basin"]')
+# Select mountain
+try:
+	# wait for page to load
+	mountain = WebDriverWait(driver, 20).until(
+	EC.presence_of_element_located((By.XPATH, '//span[text()="Arapahoe Basin"]')))
+except:
+	print("Error: Timed out")
 mountain.click();
 
-cont = driver.find_element(By.XPATH, '//span[text()="Continue"]')
-cont.click();
+# Click 'Continue' button
+try:
+	# wait for page to load
+	contButton = WebDriverWait(driver, 20).until(
+	EC.presence_of_element_located((By.XPATH, '//span[text()="Continue"]')))
+except:
+	print("Error: Timed out")
+contButton.click()
 
-#day = driver.find_element_by_xpath("//div[@aria-label='Wed Dec 23 2020' and @class='DayPicker-Day']");
-time.sleep(2)
-day = driver.find_element(By.XPATH, '//div[@aria-label="Wed Dec 23 2020"]')
-print(day.get_attribute('class'))
+# check if correct month is being checked
+try:
+	# wait for page to load
+	monthBeingChecked = WebDriverWait(driver, 20).until(
+	EC.presence_of_element_located((By.XPATH, '//span[@class="sc-pckkE goPjwB"]')))
+except:
+	print("Error: Timed out")
+if (monthBeingChecked.get_attribute('innerHTML') != (monthInput + ' ' + yearInput)):
+	print('WRONG MONTH')
+
+# loop through months until correct month is being checked
+
+while (monthBeingChecked.get_attribute('innerHTML') != (monthInput + ' ' + yearInput)):
+	# go to next month
+	nextMonthButton = driver.find_element(By.XPATH, '//i[@class="amp-icon icon-chevron-right"]')
+	nextMonthButton.click()
+	try:
+		monthBeingChecked = WebDriverWait(driver, 20).until(
+		EC.presence_of_element_located((By.XPATH, '//span[@class="sc-pckkE goPjwB"]')))
+	except:
+		print("Error: Timed out")
+	time.sleep(1)
+	print(monthBeingChecked.get_attribute('innerHTML'))
+
+
+
+# Check if day is available by reading class
+try:
+	# wait for page to load
+	day = WebDriverWait(driver, 20).until(
+	EC.presence_of_element_located((By.XPATH, '//div[contains(@aria-label,"Mar 23")]')))
+except:
+	print("Error: Timed out")
+
+if (day.get_attribute('class') == AVAILABLE):
+	print("This day is available")
 
 
 
