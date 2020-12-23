@@ -102,6 +102,3 @@ else:
 
 # close browser
 driver.close()
-
-
-
