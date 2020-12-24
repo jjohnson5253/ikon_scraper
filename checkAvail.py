@@ -100,5 +100,7 @@ if (day.get_attribute('class') == AVAILABLE):
 else:
 	print("This day is not available")
 
-# close browser
-driver.close()
+# quit the driver
+driver.quit()
+
+sys.exit()
