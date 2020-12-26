@@ -94,8 +94,8 @@ def checkAvail(password, month, day, year):
 	if (day.get_attribute('class') == AVAILABLE):
 		print("This day is available")
 		driver.quit()
-		return true
+		return True
 	else:
 		print("This day is not available")
 		driver.quit()
-		return false
+		return False
