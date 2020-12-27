@@ -10,8 +10,8 @@ echo "
 echo "<h2>Registered Users</h2>";
 echo "<table border='1'>
 <tr>
-<th>First Name</th>
-<th>Last Name</th>
+<th>Month</th>
+<th>Day</th>
 <th>Household Size</th>
 <th>Username</th>
 <th>Password</th>
@@ -20,7 +20,7 @@ echo "<table border='1'>
 // Fill table
 $mysqli = new mysqli('localhost', 'root', 'skate100', 'hoh_online_ordering');
 
-$result = $mysqli->query("SELECT * FROM tblusers");
+$result = $mysqli->query("SELECT * FROM tblDatesToCheck");
 
 while($row = $result->fetch_assoc()) {
 
