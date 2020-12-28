@@ -5,3 +5,9 @@
 		git config --global credential.helper manager
 	 then when you go to push, you will be redirected to login to github
 	-make sure chrome is the default browser
+
+12.26:
+-follow this to see how to turn on standalone-selenium server on virtual server:
+	https://tecadmin.net/setup-selenium-chromedriver-on-ubuntu/
+-run this to start the selenium server:
+	$ xvfb-run -a java -Dwebdriver.chrome.driver=/usr/bin/chromedriver -jar selenium-server-standalone-3.13.0.jar

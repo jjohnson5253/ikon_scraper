@@ -7,33 +7,35 @@ echo "
 
 // Table for current unfilled orders
 // https://stackoverflow.com/questions/17902483/show-values-from-a-mysql-database-table-inside-a-html-table-on-a-webpage
-echo "<h2>Registered Users</h2>";
+echo "<h2>Reservations To Check</h2>";
 echo "<table border='1'>
 <tr>
+<th>Mountain</th>
 <th>Month</th>
 <th>Day</th>
-<th>Household Size</th>
-<th>Username</th>
-<th>Password</th>
+<th>Year</th>
+<th>Email</th>
 </tr>";
 
 // Fill table
-$mysqli = new mysqli('localhost', 'root', 'skate100', 'hoh_online_ordering');
+$mysqli = new mysqli('localhost', 'root', '', 'mtnrez');
 
-$result = $mysqli->query("SELECT * FROM tblDatesToCheck");
+$result = $mysqli->query("SELECT * FROM reservationchecks");
 
 while($row = $result->fetch_assoc()) {
 
 	echo "<tr>";
-	echo "<td>" . $row['firstname'] . "</td>";
-	echo "<td>" . $row['lastname'] . "</td>";
-	echo "<td>" . $row['householdsize'] . "</td>";
-	echo "<td>" . $row['username'] . "</td>";
-	echo "<td>" . $row['password'] . "</td>";
+	echo "<td>" . $row['mountain'] . "</td>";
+	echo "<td>" . $row['month'] . "</td>";
+	echo "<td>" . $row['day'] . "</td>";
+	echo "<td>" . $row['year'] . "</td>";
+	echo "<td>" . $row['email'] . "</td>";
 
 	// add delete button and php reference
 	echo "<td>
-	<a href='delete_user.php?id=".$row['username']."'>
+	<a href='deleteRes.php?mountain=".$row['mountain']
+	."&month=".$row['month']."&day=".$row['day']."&year=".$row['year']
+	."&email=".$row['email']."'>
 	<input type='submit' value='Delete' class='btnDeleteAction' /></a>
 	</td>";
 
@@ -44,7 +46,7 @@ while($row = $result->fetch_assoc()) {
 ?>
 <HTML>
 <HEAD>
-<TITLE>Employee</TITLE>
+<TITLE>Reservations To Check</TITLE>
 <link href="../css/style.css" type="text/css" rel="stylesheet" />
 <link rel="icon" href="../img/favicon.ico" type="image/ico">
 </HEAD>
