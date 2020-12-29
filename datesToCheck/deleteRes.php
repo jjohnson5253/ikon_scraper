@@ -8,7 +8,7 @@ $year = $_GET['year'];
 $email = $_GET['email'];
 
 // open connection
-$mysqli = new mysqli('localhost', 'root', '', 'mtnrez');
+$mysqli = new mysqli('localhost', 'yourmom', 'Yourmom123!', 'mtnrez');
 
 // TODO: change all sql queries to use this method to avoid sql injections:
 $query = "DELETE FROM reservationchecks WHERE mountain = ? AND month = ? AND day = ? AND year = ? AND email = ?";

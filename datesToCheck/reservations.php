@@ -18,7 +18,7 @@ echo "<table border='1'>
 </tr>";
 
 // Fill table
-$mysqli = new mysqli('localhost', 'root', '', 'mtnrez');
+$mysqli = new mysqli('localhost', 'yourmom', 'Yourmom123!', 'mtnrez');
 
 $result = $mysqli->query("SELECT * FROM reservationchecks");
 

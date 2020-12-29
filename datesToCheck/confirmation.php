@@ -1,6 +1,6 @@
 <?php
 
-$mysqli = new mysqli('localhost', 'root', '', 'mtnrez');
+$mysqli = new mysqli('localhost', 'yourmom', 'Yourmom123!', 'mtnrez');
 
 $sql = "INSERT INTO reservationchecks(mountain, month, day, 
 					year, email) VALUES
