@@ -12,20 +12,7 @@ Email: <input type='text' name='email'><br>
 <input type='submit'>
 </form>";
 
-/*
-$checkAvailCmd = escapeshellcmd('checkAvail.py Snoopy123! January 10 2021');
-$output = shell_exec($checkAvailCmd);
-echo $output;
-*/
-/*
-echo '<pre>';
-passthru($output);
-echo '</pre>';
-*/
-
 ?>
-
-
 
 <HTML>
 <HEAD>
