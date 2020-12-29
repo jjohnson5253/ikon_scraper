@@ -39,6 +39,12 @@ while($row = $result->fetch_assoc()) {
 	<input type='submit' value='Delete' class='btnDeleteAction' /></a>
 	</td>";
 
+	// add delete button and php reference
+	echo "<td>
+	<a href='../email.php'>
+	<input type='submit' value='Email' class='btnDeleteAction' /></a>
+	</td>";
+
 	// end table row
 	echo "</tr>";
 }
