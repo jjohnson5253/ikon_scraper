@@ -8,20 +8,13 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.chrome.options import Options
 
 # class name if the day is available
 AVAILABLE = 'DayPicker-Day'
 
-def checkAvail(password, month, day, year):
+def login(driver, password):
 	# open login page
 	url = "https://account.ikonpass.com/en/login"
-	options = Options()
-	options.add_argument('--headless')
-	options.add_argument('--disable-gpu')
-	options.add_argument("window-size=1024,768")
-	options.add_argument("--no-sandbox")
-	driver = webdriver.Chrome(chrome_options=options)
 	driver.get(url)
 
 	# send login parameters
@@ -40,8 +33,9 @@ def checkAvail(password, month, day, year):
 		print("Error: Timed out")
 		sys.exit()
 	# use a javascript click, the selenium click not working
-	driver.execute_script("arguments[0].click();", resButton) 
+	driver.execute_script("arguments[0].click();", resButton)
 
+def isAvailable(driver, month, day, year):
 	# select mountain
 	try:
 		# wait for page to load

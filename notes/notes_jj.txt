@@ -1,0 +1,35 @@
+
+-see this thread for easy way to add github credentials to git:
+	https://stackoverflow.com/questions/46878457/adding-git-credentials-on-windows
+	-basically just run:
+		git config --global credential.helper manager
+	 then when you go to push, you will be redirected to login to github
+	-make sure chrome is the default browser
+
+12.26:
+-follow this to see how to turn on standalone-selenium server on virtual server:
+	https://tecadmin.net/setup-selenium-chromedriver-on-ubuntu/
+-run this to start the selenium server:
+	$ xvfb-run -a java -Dwebdriver.chrome.driver=/usr/bin/chromedriver -jar selenium-server-standalone-3.13.0.jar
+
+
+12.28
+---------------------------------------------------------------------------------------------
+Run this in ikon scraper directory to get PHP mailer working:
+
+\xampp\php\php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+\xampp\php\php -r "if (hash_file('sha384', 'composer-setup.php') === '756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+\xampp\php\php composer-setup.php
+\xampp\php\php -r "unlink('composer-setup.php');"
+
+composer require phpmailer/phpmailer
+---------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
