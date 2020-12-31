@@ -2,7 +2,7 @@
 
 echo "
 <h2>Ikon Scraper</h2>
-<form action='datesToCheck/confirmation.php' method='post'>
+<form action='php/confirmation.php' method='post'>
 Mountain: <input type='text' name='mountain'><br>
 Month: <input type='text' name='month'><br>
 Day: <input type='text' name='day'><br>
