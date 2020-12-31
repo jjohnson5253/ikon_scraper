@@ -1,16 +1,50 @@
 <?php
 
-echo "
-<h2>Ikon Scraper</h2>
-<form action='php/confirmation.php' method='post'>
-Mountain: <input type='text' name='mountain'><br>
-Month: <input type='text' name='month'><br>
-Day: <input type='text' name='day'><br>
-Year: <input type='text' name='year'><br>
-Email: <input type='text' name='email'><br>
-<br>
-<input type='submit'>
-</form>";
+echo "<h1>Ikon Mountain Reservation Dates</h1>
+	<h3>Dates Available</h3>
+	<table border='1'>
+	<tr>
+	<th>Mountain</th>
+	<th>Month</th>
+	<th>Day</th>
+	<th>Year</th>
+	</tr>";
+
+// Fill table
+$mysqli = new mysqli('localhost', 'website', 'hugoboss123!', 'mtnrez');
+
+$result = $mysqli->query("SELECT * FROM datesavailable");
+
+while($row = $result->fetch_assoc()) {
+	echo "<tr>";
+	echo "<td>" . $row['mountain'] . "</td>";
+	echo "<td>" . $row['month'] . "</td>";
+	echo "<td>" . $row['day'] . "</td>";
+	echo "<td>" . $row['year'] . "</td>";
+	echo "</tr>";
+}
+echo "</table>";
+
+echo "<h3>Dates Reserved</h3>
+	<table border='1'>
+	<tr>
+	<th>Mountain</th>
+	<th>Month</th>
+	<th>Day</th>
+	<th>Year</th>
+	</tr>";
+
+$result = $mysqli->query("SELECT * FROM datesreserved");
+
+while($row = $result->fetch_assoc()) {
+	echo "<tr>";
+	echo "<td>" . $row['mountain'] . "</td>";
+	echo "<td>" . $row['month'] . "</td>";
+	echo "<td>" . $row['day'] . "</td>";
+	echo "<td>" . $row['year'] . "</td>";
+	echo "</tr>";
+}
+echo "</table>";
 
 ?>
 
