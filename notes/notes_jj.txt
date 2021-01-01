@@ -25,7 +25,14 @@ Run this in ikon scraper directory to get PHP mailer working:
 composer require phpmailer/phpmailer
 ---------------------------------------------------------------------------------------------
 
-
+12.30
+created a user called website that has read only access to database
+heres how:
+	$mysql
+	$USE mtnrez;
+	$CREATE USER 'website'@'localhost' IDENTIFIED BY 'password';
+	$GRANT SELECT ON *.* TO 'website'@'localhost';
+	
 
 
 

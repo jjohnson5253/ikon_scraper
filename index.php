@@ -25,27 +25,6 @@ while($row = $result->fetch_assoc()) {
 }
 echo "</table>";
 
-echo "<h3>Dates Reserved</h3>
-	<table border='1'>
-	<tr>
-	<th>Mountain</th>
-	<th>Month</th>
-	<th>Day</th>
-	<th>Year</th>
-	</tr>";
-
-$result = $mysqli->query("SELECT * FROM datesreserved");
-
-while($row = $result->fetch_assoc()) {
-	echo "<tr>";
-	echo "<td>" . $row['mountain'] . "</td>";
-	echo "<td>" . $row['month'] . "</td>";
-	echo "<td>" . $row['day'] . "</td>";
-	echo "<td>" . $row['year'] . "</td>";
-	echo "</tr>";
-}
-echo "</table>";
-
 ?>
 
 <HTML>
